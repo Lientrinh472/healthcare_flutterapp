@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -10,6 +13,33 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool isChecked = false;
+
+  //   late Box box1;
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   createOpenBox();
+  // }
+  // void createOpenBox()async{
+  //   box1 = await Hive.openBox('logindata');
+  //   getdata();
+  // }
+  // void getdata()async{
+  //   if(box1.get('email')!=null){
+  //     email.text = box1.get('email');
+  //     isChecked = true;
+  //     setState(() {
+  //     });
+  //   }
+  //   if(box1.get('pass')!=null){
+  //     pass.text = box1.get('pass');
+  //     isChecked = true;
+  //     setState(() {
+  //     });
+  //   }
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,6 +69,13 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const EdgeInsets.only(left: 20),
                     child: TextField(
                       decoration: InputDecoration(
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Icon(
+                            Icons.person,
+                          ),
+                        ),
                         contentPadding: EdgeInsets.symmetric(vertical: 20),
                         border: InputBorder.none,
                         hintText: 'Username',
@@ -60,6 +97,20 @@ class _LoginPageState extends State<LoginPage> {
                     child: TextField(
                       obscureText: true,
                       decoration: InputDecoration(
+                        suffixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Icon(
+                            Icons.remove_red_eye,
+                          ),
+                        ),
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Icon(
+                            Icons.lock,
+                          ),
+                        ),
                         contentPadding: EdgeInsets.symmetric(vertical: 20),
                         border: InputBorder.none,
                         hintText: 'Password',
@@ -69,6 +120,24 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: 20),
 
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Remember Me",
+                  style: TextStyle(color: Colors.black),
+                ),
+                Checkbox(
+                  value: isChecked,
+                  onChanged: (value) {
+                    isChecked = value!;
+                    setState(() {});
+                  },
+                ),
+              ],
+            ),
+
+            SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Container(
@@ -84,7 +153,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   child: Text('Login'),
-                  onPressed: (() {}),
+                  onPressed: (() {
+                  }),
                 ),
               ),
             ),
@@ -93,4 +163,10 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+  // void login(){
+  //   if(isChecked){
+  //     box1.put('email', email.value.text);
+  //     box1.put('pass', pass.value.text);
+  //   }
+  // }
 }
