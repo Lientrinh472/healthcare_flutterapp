@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import '../homepage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -10,6 +11,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final userNameTextController = TextEditingController();
+  final passwordTextController = TextEditingController();
+
+  @override
+  void dispose(){
+    userNameTextController.dispose();
+    passwordTextController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,14 +31,6 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               height: 50,
             ),
-            // Text(
-            //   'Hello Nghia',
-            //   style: TextStyle(
-            //     fontWeight: FontWeight.bold,
-            //     fontSize: 24,
-            //   )
-            //   ),
-            // SizedBox(height: 30),
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -38,10 +41,11 @@ class _LoginPageState extends State<LoginPage> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20),
                     child: TextField(
+                      controller: userNameTextController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.symmetric(vertical: 20),
                         border: InputBorder.none,
-                        hintText: 'Username',
+                        hintText: 'Username'
                       ),
                     ),
                   )),
@@ -58,6 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20),
                     child: TextField(
+                      controller: passwordTextController,
                       obscureText: true,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.symmetric(vertical: 20),
@@ -84,7 +89,18 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   child: Text('Login'),
-                  onPressed: (() {}),
+                  onPressed: (() {
+                    if(userNameTextController.text=='admin' &&passwordTextController.text=='admin'){
+                    Navigator.push(
+                    context,
+                     MaterialPageRoute(builder: (context) => const SecondRoute()),
+                    );
+                    }
+                    // if user name && password  = true
+                    // then login to other page
+                    // else
+                    // Do nothing or show something to user that notifi the username and password not right
+                  }),
                 ),
               ),
             ),
