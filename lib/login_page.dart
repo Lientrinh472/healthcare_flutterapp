@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import '../homepage.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,12 +16,48 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final userNameTextController = TextEditingController();
   final passwordTextController = TextEditingController();
+  String? userNameValue = '';
+  String? pwValue = '';
+
+  // Search Gg what is GlobalKey, FormState, ScaffoldState
+  // ======================================================
+
+  final _storage = const FlutterSecureStorage();
+  final GlobalKey<FormState> _formState = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
+  bool _savePassword = true;
+
+  // Read data from saved Storage
+  Future<void> _readFromStorage() async {
+    userNameTextController.text =
+        await _storage.read(key: "KEY_USERNAME") ?? '';
+    // the line above equal to lines below:
+    // if (await _storage.read(key: "KEY_USERNAME") == null){
+    //   userNameTextController.text = '';
+    // } else{
+    //   userNameTextController.text = await _storage.read(key: "KEY_USERNAME")
+    // }
+    passwordTextController.text =
+        await _storage.read(key: "KEY_PASSWORD") ?? '';
+  }
+
+  // Write data into local storage
+  _onFormSubmit() async {
+    if (_formState.currentState?.validate() == false) {
+      if (_savePassword) {
+        // process save data into storage
+        await _storage.write(
+            key: "KEY_USERNAME", value: userNameTextController.text);
+        await _storage.write(
+            key: "KEY_PASSWORD", value: passwordTextController.text);
+      }
+    }
+  }
 
   @override
-  void dispose(){
-    userNameTextController.dispose();
-    passwordTextController.dispose();
-    super.dispose();
+  void initState() {
+    super.initState();
+    _readFromStorage();
   }
 
   @override
@@ -31,7 +70,6 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               height: 50,
             ),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50),
               child: Container(
@@ -43,16 +81,20 @@ class _LoginPageState extends State<LoginPage> {
                     child: TextField(
                       controller: userNameTextController,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(vertical: 20),
-                        border: InputBorder.none,
-                        hintText: 'Username'
-                      ),
+                          prefixIcon: Align(
+                            widthFactor: 1.0,
+                            heightFactor: 1.0,
+                            child: Icon(
+                              Icons.person,
+                            ),
+                          ),
+                          contentPadding: EdgeInsets.symmetric(vertical: 20),
+                          border: InputBorder.none,
+                          hintText: 'Username'),
                     ),
                   )),
             ),
-
             SizedBox(height: 20),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50),
               child: Container(
@@ -65,6 +107,20 @@ class _LoginPageState extends State<LoginPage> {
                       controller: passwordTextController,
                       obscureText: true,
                       decoration: InputDecoration(
+                        suffixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Icon(
+                            Icons.remove_red_eye,
+                          ),
+                        ),
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Icon(
+                            Icons.lock,
+                          ),
+                        ),
                         contentPadding: EdgeInsets.symmetric(vertical: 20),
                         border: InputBorder.none,
                         hintText: 'Password',
@@ -73,6 +129,14 @@ class _LoginPageState extends State<LoginPage> {
                   )),
             ),
             SizedBox(height: 20),
+            CheckboxListTile(
+                title: Text("Remember me"),
+                value: _savePassword,
+                onChanged: (value) {
+                  setState(() {
+                    _savePassword = value ?? false;
+                  });
+                }),
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -90,16 +154,18 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   child: Text('Login'),
                   onPressed: (() {
-                    if(userNameTextController.text=='admin' &&passwordTextController.text=='admin'){
-                    Navigator.push(
-                    context,
-                     MaterialPageRoute(builder: (context) => const SecondRoute()),
-                    );
+                    if (userNameTextController.text == 'admin' &&
+                        passwordTextController.text == 'admin') {
+                      if (_savePassword == true){
+                        _onFormSubmit();
+                      }
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SecondRoute()),
+                      );
                     }
-                    // if user name && password  = true
-                    // then login to other page
-                    // else
-                    // Do nothing or show something to user that notifi the username and password not right
                   }),
                 ),
               ),
