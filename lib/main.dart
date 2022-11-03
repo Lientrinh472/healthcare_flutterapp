@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './login_page.dart';
+import './profile_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +14,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      theme: ThemeData(
+        primaryColor: Colors.blue.shade300
+      ),
+      home: ProfilePage(),
     );
   }
 }

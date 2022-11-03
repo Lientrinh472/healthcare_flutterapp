@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
 
   final _storage = const FlutterSecureStorage();
   final GlobalKey<FormState> _formState = GlobalKey<FormState>();
-  final GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _ScaffoldState = GlobalKey<ScaffoldState>();
   bool _savePassword = true;
 
   // Read data from saved Storage
@@ -73,6 +73,8 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50),
               child: Container(
+                  height: 59,
+                  width: 354,
                   decoration: BoxDecoration(
                       color: Color(0xffF0F0F0),
                       borderRadius: BorderRadius.circular(12)),
@@ -98,6 +100,8 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50),
               child: Container(
+                  height: 59,
+                  width: 354,
                   decoration: BoxDecoration(
                       color: Color(0xffF0F0F0),
                       borderRadius: BorderRadius.circular(12)),
