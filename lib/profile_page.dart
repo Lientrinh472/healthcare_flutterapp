@@ -92,8 +92,17 @@ class _ProfilePageState extends State<ProfilePage> {
                                     'assets/images/logouticon.png'))),
                       )),
                   const SizedBox(width: 15),
-                  const Text('Log out',
-                      style: TextStyle(fontSize: 17, color: Colors.black)),
+                  Container(
+                    padding: EdgeInsets.all(0),
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        textStyle: TextStyle(fontSize: 17),
+                        primary: Colors.black,
+                      ),
+                      child: Text('Log out'),
+                      onPressed: (() => {}),
+                    ),
+                  )
                 ]),
               ),
             ),
@@ -130,23 +139,85 @@ class _ProfilePageState extends State<ProfilePage> {
                                       'assets/images/settings.png'))),
                         ),
                         const SizedBox(width: 3),
+                        Container(
+                          padding: EdgeInsets.all(0),
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                              textStyle: TextStyle(fontSize: 17),
+                              primary: Colors.black,
+                            ),
+                            child: Text('Setting'),
+                            onPressed: (() => {}),
+                          ),
+                        )
+                      ]),
+                      Container(
+                        color: Color.fromARGB(255, 241, 240, 240),
+                        height: 1,
+                        width: double.infinity,
+                      ),
+                      Row(children: const [
+                        SizedBox(width: 50),
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Text('Language',
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.black)),
+                        ),
+                        SizedBox(width: 150),
+                        Text('English',
+                            style:
+                                TextStyle(fontSize: 15, color: Colors.black)),
+                      ]),
+                    ],
+                  ),
+                )),
+
+            //Separation from Language box
+            SizedBox(height: 150),
+            Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50),
+                child: Container(
+                  height: 100,
+                  width: 354,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      Row(children: [
+                        const SizedBox(width: 5),
+                        Container(
+                          padding: const EdgeInsets.all(25),
+                          decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/settings.png'))),
+                        ),
+                        const SizedBox(width: 3),
                         const Text('Setting',
                             style:
                                 TextStyle(fontSize: 17, color: Colors.black)),
                       ]),
-                     
-                      // Expanded(
-                      //   child:Container(
-                      //     color: Colors.black,
-                      //     ) ),
                       Container(
-                  color: Color.fromARGB(255, 241, 240, 240),
-                  height: 1,
-                  width: double.infinity,
-                ),
-
+                        color: Color.fromARGB(255, 241, 240, 240),
+                        height: 1,
+                        width: double.infinity,
+                      ),
                       Row(children: const [
-                         SizedBox(width: 50),
+                        SizedBox(width: 50),
                         Padding(
                           padding: EdgeInsets.all(10),
                           child: Text('Language',
