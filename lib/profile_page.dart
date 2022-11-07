@@ -157,28 +157,34 @@ class _ProfilePageState extends State<ProfilePage> {
                         width: double.infinity,
                       ),
                       Row(children: const [
-                        SizedBox(width: 50),
+                        SizedBox(width: 60),
                         Padding(
                           padding: EdgeInsets.all(10),
                           child: Text('Language',
                               style:
                                   TextStyle(fontSize: 15, color: Colors.black)),
                         ),
-                        SizedBox(width: 150),
-                        Text('English',
-                            style:
-                                TextStyle(fontSize: 15, color: Colors.black)),
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Text('English',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontSize: 15, color: Colors.black)),
+                          ),
+                        )
                       ]),
                     ],
                   ),
                 )),
 
             //Separation from Language box
-            SizedBox(height: 150),
+            // Start Logout Session
+            SizedBox(height: 50),
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50),
                 child: Container(
-                  height: 100,
+                  height: 200,
                   width: 354,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -198,37 +204,85 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Column(
                     children: [
                       Row(children: [
-                        const SizedBox(width: 5),
-                        Container(
-                          padding: const EdgeInsets.all(25),
-                          decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/settings.png'))),
-                        ),
-                        const SizedBox(width: 3),
-                        const Text('Setting',
-                            style:
-                                TextStyle(fontSize: 17, color: Colors.black)),
+                        Expanded(
+                          child: Container(
+                            // color: Colors.red,
+                            padding: const EdgeInsets.all(20),
+                            child: const Center(
+                              child: Text('Logout',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 20,
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.w800)),
+                            ),
+                          ),
+                        )
                       ]),
+                      // Seperate line
                       Container(
                         color: Color.fromARGB(255, 241, 240, 240),
                         height: 1,
                         width: double.infinity,
                       ),
-                      Row(children: const [
-                        SizedBox(width: 50),
-                        Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Text('Language',
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.black)),
+                      const SizedBox(height: 5),
+                      // Confirm Text
+                      Expanded(
+                        child: Container(
+                          // color: Colors.red,
+                          padding: const EdgeInsets.all(10),
+                          child: const Center(
+                            child: Text('Are you sure you want to log out?',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    // fontFamily: 'Roboto',
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600)),
+                          ),
                         ),
-                        SizedBox(width: 150),
-                        Text('English',
-                            style:
-                                TextStyle(fontSize: 15, color: Colors.black)),
-                      ]),
+                      ),
+                      SizedBox(height: 5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          // SizedBox(width: 50,),
+                          Container(
+                            height: 55,
+                            width: 175,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFDDFEEC),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            // padding: EdgeInsets.all(20),
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                textStyle: TextStyle(fontSize: 15),
+                                primary: Color(0xFF079D49),
+                              ),
+                              child: Text('Cancel'),
+                              onPressed: (() => {}),
+                            ),
+                          ),
+                          Container(
+                            height: 55,
+                            width: 175,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF079D49),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                textStyle: TextStyle(fontSize: 15),
+                                primary: Color(0xFFFFFFFF),
+                              ),
+                              child: Text('Yes, Logout'),
+                              onPressed: (() => {}),
+                            ),
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 ))
