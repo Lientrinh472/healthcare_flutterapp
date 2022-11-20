@@ -62,6 +62,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ]),
               ),
             ),
+
             SizedBox(height: 7),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -100,7 +101,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         primary: Colors.black,
                       ),
                       child: Text('Log out'),
-                      onPressed: (() => {}),
+                      onPressed: () => showBottomsheet(),
                     ),
                   )
                 ]),
@@ -123,7 +124,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 5,
                         blurRadius: 7,
-                        offset: Offset(0, 3), // changes position of shadow
+                        offset: Offset(0, 3), 
                       ),
                     ],
                   ),
@@ -166,7 +167,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         Expanded(
                           child: Align(
-                            alignment: Alignment.centerRight,
                             child: Text('English',
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
@@ -177,116 +177,93 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   ),
                 )),
-
-            //Separation from Language box
-            // Start Logout Session
-            SizedBox(height: 50),
-            Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50),
-                child: Container(
-                  height: 200,
-                  width: 354,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      Row(children: [
-                        Expanded(
-                          child: Container(
-                            // color: Colors.red,
-                            padding: const EdgeInsets.all(20),
-                            child: const Center(
-                              child: Text('Logout',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 20,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w800)),
-                            ),
-                          ),
-                        )
-                      ]),
-                      // Seperate line
-                      Container(
-                        color: Color.fromARGB(255, 241, 240, 240),
-                        height: 1,
-                        width: double.infinity,
-                      ),
-                      const SizedBox(height: 5),
-                      // Confirm Text
-                      Expanded(
-                        child: Container(
-                          // color: Colors.red,
-                          padding: const EdgeInsets.all(10),
-                          child: const Center(
-                            child: Text('Are you sure you want to log out?',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    // fontFamily: 'Roboto',
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600)),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 5),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          // SizedBox(width: 50,),
-                          Container(
-                            height: 55,
-                            width: 175,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFDDFEEC),
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            // padding: EdgeInsets.all(20),
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                textStyle: TextStyle(fontSize: 15),
-                                primary: Color(0xFF079D49),
-                              ),
-                              child: Text('Cancel'),
-                              onPressed: (() => {}),
-                            ),
-                          ),
-                          Container(
-                            height: 55,
-                            width: 175,
-                            decoration: BoxDecoration(
-                              color: Color(0xFF079D49),
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                textStyle: TextStyle(fontSize: 15),
-                                primary: Color(0xFFFFFFFF),
-                              ),
-                              child: Text('Yes, Logout'),
-                              onPressed: (() => {}),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ))
           ]),
         )));
   }
+
+  void showBottomsheet() => showModalBottomSheet(
+    isDismissible: false,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      context: context,
+      builder: (context) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Container(
+            height: 200,
+            child: Column(children: [
+              Row(children: [
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    child: const Center(
+                      child: Text('Logout',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 20,
+                              color: Colors.red,
+                              fontWeight: FontWeight.w800)),
+                    ),
+                  ),
+                )
+              ]),
+              Container(
+                color: Color.fromARGB(255, 241, 240, 240),
+                height: 1,
+                width: double.infinity,
+              ),
+              const SizedBox(height: 5),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  child: const Center(
+                    child: Text('Are you sure you want to log out?',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600)),
+                  ),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 55,
+                    width: 175,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFDDFEEC),
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        textStyle: TextStyle(fontSize: 15),
+                        primary: Color(0xFF079D49),
+                      ),
+                      child: Text('Cancel'),
+                      onPressed: (() => {}),
+                    ),
+                  ),
+                  Container(
+                    height: 55,
+                    width: 175,
+                    decoration: BoxDecoration(
+                      color: Color(0xFF079D49),
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        textStyle: TextStyle(fontSize: 15),
+                        primary: Color(0xFFFFFFFF),
+                      ),
+                      child: Text('Yes, Logout'),
+                      onPressed: () {
+                        Navigator.of(context).pop(context);
+                      },
+                    ),
+                  ),
+                ],
+              )
+            ]),
+          )));
 }
